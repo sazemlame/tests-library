@@ -1,0 +1,28 @@
+id: sql-injection
+info:
+  name: SQL Injection Testing
+  author: Shubham Basu
+  severity: info
+  description: |
+    This template is used to test SQL injection vulnerabilities in query parameters.
+
+requests:
+  - name: SQL Injection
+    type: http
+    method: GET
+    path:
+      - "{{BaseURL}}"
+    queries:
+      - key: filter
+        value: "'"
+        description: SQL Injection payload  
+    matchers:
+      - type: word
+        words:
+          - "Error"
+          - "Exception"
+          - "SQL syntax"
+          - "Database error"
+        part: body
+    tags:
+      - sql-injection
